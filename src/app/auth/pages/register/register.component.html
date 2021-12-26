@@ -1,0 +1,152 @@
+<h2>Reactive Validations</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form   (ngSubmit)="save()"
+                [formGroup]="myForm"
+                autocomplete="off">
+
+            <!-- Name -->
+            <div class="mt-3 row">
+                <label for="" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input  type="text" 
+                            class="form-control"
+                            placeholder="Name"
+                            formControlName="name"
+                            >
+                    <span class="form-text text-danger"
+                    *ngIf="validField('name')">
+                        Must have name and last name
+                    </span>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mt-3 row">
+                <label for="" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input  type="email" 
+                            class="form-control"
+                            placeholder="Email"
+                            formControlName="email"
+                            >
+                    <span class="form-text text-danger" >
+                        {{emailError}}
+                    </span>
+                    <!-- <span class="form-text text-danger"
+                        *ngIf="emailRequired()">
+                        Email is required
+                    </span>
+                    <span class="form-text text-danger"
+                        *ngIf="emailPattern()">
+                        Must be a valid email
+                    </span>
+                    <span class="form-text text-danger"
+                        *ngIf="emailTaken()">
+                        Email is taken
+                    </span> -->
+                </div>
+            </div>
+
+            <!-- Username -->
+            <div class="mt-3 row">
+                <label for="" class="col-sm-3 col-form-label">Username</label>
+                <div class="col-sm-9">
+                    <input  type="text" 
+                            class="form-control"
+                            placeholder="Invalid: 'diego', 'gabriel', 'barroso', 'benitez'"
+                            formControlName="username"
+                            >
+                    <span class="form-text text-danger"
+                        *ngIf="validField('username')">
+                        Must be a valid username
+                    </span>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mt-3 row">
+                <label for="" class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input  type="password" 
+                            class="form-control"
+                            placeholder="Password"
+                            formControlName="password"
+                            >
+                    <span class="form-text text-danger"
+                        *ngIf="validField('password')">
+                        Minimum eight characters, at least one uppercase letter, one lowercase letter, one number, and one special character
+                    </span>
+                </div>
+            </div>
+
+            <!-- Repeat Password -->
+            <div class="mt-3 row">
+                <label for="" class="col-sm-3 col-form-label">Repeat Password</label>
+                <div class="col-sm-9">
+                    <input  type="password" 
+                            class="form-control"
+                            placeholder="Repeat Password"
+                            formControlName="confirmPassword"
+                            >
+                    <span class="form-text text-danger"
+                        *ngIf="validField('confirmPassword')">
+                        Passwords do not match
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="mt-3 row">
+                <div class="col">
+                    <button class="btn btn-primary float-end" 
+                            type="submit"
+                            [disabled] = "myForm.pending"
+                            >
+                        Save
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <p>Valid: {{myForm.valid}}</p>
+        <p>Status: {{myForm.status}}</p>
+
+        <p>Form errors</p>
+        <pre>{{myForm.errors | json}}</pre>
+
+        <p>Name</p>
+        <pre>{{myForm.controls['name'].errors | json}}</pre>
+
+        <p>Email</p>
+        <pre>{{myForm.controls['email'].errors | json}}</pre>
+
+        <p>Username</p>
+        <pre>{{myForm.controls['username'].errors | json}}</pre>
+
+        <p>Password</p>
+        <pre>{{myForm.controls['password'].errors | json}}</pre>
+
+        <p>Confirm Password</p>
+        <pre>{{myForm.controls['confirmPassword'].errors | json}}</pre>
+
+        <p>Pristine: {{myForm.pristine}}</p>
+
+        <p>Touched: {{myForm.touched}}</p>
+
+        <p>Value: </p>
+        <pre>
+            {{myForm.value | json}}
+        </pre>
+        
+    </div>
+</div>

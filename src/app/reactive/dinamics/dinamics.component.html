@@ -1,0 +1,88 @@
+<h2>Reactive: Dinamics</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+
+        <form   [formGroup]="myForm"
+                (ngSubmit)="save()"
+                autocomplete="off">
+
+            <div class="mt-3 row">
+                <label for="" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input  type="text" 
+                            class="form-control"
+                            placeholder="Name"
+                            formControlName="name">
+                    <span class="form-text text-danger"
+                        *ngIf="validField('name')">
+                        Name is required
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <label for="" class="col-sm-3 col-form-label">Add</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <input  type="text"
+                                class="form-control"
+                                placeholder="Add favorite"
+                                [formControl]="newFavorit"
+                                (keyup.enter)="add()"
+                                >
+                        <button type="button" class="btn btn-outline-primary"
+                                (click)="add()">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorit games -->
+            <div class="row mt-3">
+                <label class="col-sm-3 col-form-label" >Favorits</label>
+                <div class="col-sm-9" formArrayName="favorits">
+                    <div class="input-group mb-1" *ngFor="let favorit of favoritArr.controls; let i = index">
+                        <input  
+                            type="text"
+                            class="form-control"
+                            [formControlName]="i">
+                        <button type="button"
+                                class="btn btn-outline-danger"
+                                (click)="delete(i)">
+                                X
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+            <div class="mt-3 row">
+                <div class="col">
+                    <button class="btn btn-primary float-end" 
+                            type="submit">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <p>Valid: {{myForm.valid}}</p>
+
+        <p>Pristine: {{myForm.pristine}}</p>
+
+        <p>Touched: {{myForm.touched}}</p>
+
+        <p>Value: </p>
+        <pre>
+            {{myForm.value | json}}
+        </pre>
+    </div>
+</div>
